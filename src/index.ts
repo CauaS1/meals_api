@@ -13,4 +13,4 @@ app.use(cors());
 app.use(bodyParser.json())
 app.use(routes);
 
-app.listen(5500, () => console.log('Running!'));
+app.listen(5500, () => console.log('Running 🚀'));

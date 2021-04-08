@@ -1,4 +1,4 @@
-import { Equal, getRepository, LessThanOrEqual } from  'typeorm';
+import { Equal, getRepository, LessThanOrEqual, Like } from  'typeorm';
 import { Request, Response } from 'express';
 import { Meals } from '../entity/Meals';
 
@@ -35,7 +35,7 @@ export const byCalories = async(req: Request, res: Response) => {
 // FIlter by name
 export const byName = async(req: Request, res: Response) => {
   const { name } = req.params;
-  const meal_name = await await getRepository(Meals).find({ title: Equal(name) });
+  const meal_name = await await getRepository(Meals).find({ title: Like(`%${name}%`) });
 
   return res.json(meal_name);
 }
