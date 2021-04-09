@@ -25,16 +25,31 @@ export const rateMeal = async(req: Request, res:Response) => {
 
 // Filter by caloreis
 export const byCalories = async(req: Request, res: Response) => {
-  const { calories } = req.params;
+  const { option } = req.params;
   
-  const meal_calories = await getRepository(Meals).find({ total_calories: LessThanOrEqual(parseFloat(calories)) })
+  if (option === 'asc') {
+    const meal_calories = await getRepository(Meals).find({ order: {
+      total_calories: 'ASC'
+    } });
+  
+    return res.json({ meal_calories });
 
-  return res.json({ meal_calories });
+  } else if (option === 'desc') {
+    const meal_calories = await getRepository(Meals).find({ order: {
+      total_calories: 'DESC'
+    } });
+  
+    return res.json({ meal_calories });
+  } else {
+    return res.json({ msg: 'Invalod - ' + option })
+  }
+
 }
 
 // FIlter by name
 export const byName = async(req: Request, res: Response) => {
   const { name } = req.params;
+
   const meal_name = await await getRepository(Meals).find({ title: Like(`%${name}%`) });
 
   return res.json(meal_name);

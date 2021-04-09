@@ -7,7 +7,7 @@ const routes = Router();
 routes.get('/meals', getMeals);
 routes.post('/meals', createMeals);
 
-routes.get('/meals/:calories', byCalories);
+routes.get('/meals/calories/:option', byCalories);
 routes.get('/meals/title/:name', byName);
 
 routes.get('/users', getUser);
