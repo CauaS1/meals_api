@@ -1,19 +1,23 @@
 import { getRepository } from 'typeorm';
 import { Request, Response } from 'express';
-import { Meal_Users } from '../entity/Users';
+import { Users } from '../entity/Users';
 
-export const getUser = async(req: Request, res: Response) => {
-  const user = await getRepository(Meal_Users).find();
+export const getUsers = async(req: Request, res: Response) => {
+  const user = await getRepository(Users).find();
 
-  return res.json(user);
+  return res.json({ user });
 }
 
-export const createUser = async(req: Request, res: Response) => {
+export const register = async(req: Request, res: Response) => {
   const { email, password } = req.body;
 
-  const user = await getRepository(Meal_Users).save({ email, password }).then(() => {
+  const user = await getRepository(Users).save({ email, password }).then(() => {
     console.log('success!')
   }).catch(err => console.log(err))
   
   return res.json(user);
 }
+
+// export const login = async(req: Request, res: Response) => {
+
+// }
