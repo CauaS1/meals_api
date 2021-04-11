@@ -19,22 +19,18 @@ export const register = async (req: Request, res: Response) => {
 
   const account = await getRepository(Users).find({
     email: email
-  }); //pegando o email
-
-  account.map(async (user) => {
-    console.log(user.email)
-
-    if (!user.email) { //se nao existir eu crio
-      const user = await getRepository(Users).save({ email, password: hash }).then(() => {
-        console.log('success!')
-      }).catch(err => console.log(err));
-
-      return res.json(user);
-    }
-    return res.status(409).json({ msg: 'This email already exist!' });
   });
 
-  return res.json({ msg: 'aa' })
+  if(account.length === 0) {
+    const user = await getRepository(Users).save({
+      email: email,
+      password: hash
+    })
+
+    return res.status(200).json(user);
+  }
+
+  return res.status(409).json({ msg: 'Invalid email! Tihs email already exist'! })
 }
 
 export const login = async (req: Request, res: Response) => {
