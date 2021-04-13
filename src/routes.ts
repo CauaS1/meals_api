@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { byCalories, byName, check, createMeals, getMeals } from './controllers/MealsController';
-import { register, getUsers, login } from './controllers/UsersController';
+import { register, getUsers, login, logout } from './controllers/UsersController';
 
 const routes = Router();
 
@@ -15,5 +15,7 @@ routes.get('/check', check);
 routes.get('/users', getUsers);
 routes.post('/register', register);
 routes.post('/login', login);
+routes.get('/logout', logout);
+
 
 export default routes;

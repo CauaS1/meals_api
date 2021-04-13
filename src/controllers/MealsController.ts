@@ -82,10 +82,3 @@ export const byName = async (req: Request, res: Response) => {
 export const check = async (req: Request, res: Response) => {
   return res.json({ msg: req.session.user })
 }
-
-
-// export const test = async(req: Request, res: Response) => {
-//   const meal_name = await await getRepository(Users).find({ title: Like(`%${name}%`) });
-
-//   return res.json(meal_name);
-// }

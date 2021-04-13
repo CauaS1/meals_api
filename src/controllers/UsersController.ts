@@ -65,6 +65,11 @@ export const login = async (req: Request, res: Response) => {
 
     })
   })
-
   return res.json(user);
+}
+
+export const logout = async(req: Request, res: Response) => {
+  req.session.user = undefined;
+
+  return res.status(200).json({ msg: 'Logout was a success!' });
 }
