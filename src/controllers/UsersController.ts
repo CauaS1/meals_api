@@ -1,11 +1,11 @@
 import { Equal, getRepository } from 'typeorm';
 import { Request, Response } from 'express';
 import { Users } from '../entity/Users';
+import { Cookie } from 'express-session';
 
 import * as bcrypt from 'bcrypt';
 
 const salt = 10;
-
 export const getUsers = async (req: Request, res: Response) => {
   const user = await getRepository(Users).find();
 
@@ -13,7 +13,7 @@ export const getUsers = async (req: Request, res: Response) => {
 }
 
 export const register = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  const { email, password, name } = req.body;
 
   const hash = bcrypt.hashSync(password, salt);
 
@@ -24,7 +24,8 @@ export const register = async (req: Request, res: Response) => {
   if(account.length === 0) {
     const user = await getRepository(Users).save({
       email: email,
-      password: hash
+      password: hash,
+      name: name,
     })
 
     return res.status(200).json(user);
@@ -46,7 +47,16 @@ export const login = async (req: Request, res: Response) => {
       if (hash !== false) {
         const accountPassword = getRepository(Users).find({
           where: { email: Equal(email), password: user.password }
-        })
+        }).then(data => {
+          console.log(data);
+        }).catch(err => console.log(err));
+
+        req.session.user = { // Becareful, the order matter, it wasn't working because its was, id, email, name and photo
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          photo: user.photo,
+        };
 
         return res.status(200).json({ msg: 'Success! Logged' })
       } else {

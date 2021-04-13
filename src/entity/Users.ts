@@ -1,9 +1,16 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, Tree, UpdateDateColumn } from "typeorm";
+import { Meals } from "./Meals";
 
 @Entity()
 export class Users {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
   id: number;
+
+  @Column()
+  name: string;
+
+  @Column({ default: 'https://www.pngitem.com/pimgs/m/35-350426_profile-icon-png-default-profile-picture-png-transparent.png' })
+  photo: string;
 
   @Column()
   email: string;
@@ -16,4 +23,7 @@ export class Users {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => Meals, meals => meals.users)
+  meals: Meals[];
 }

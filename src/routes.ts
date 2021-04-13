@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { byCalories, byName, createMeals, getMeals } from './controllers/MealsController';
+import { byCalories, byName, check, createMeals, getMeals } from './controllers/MealsController';
 import { register, getUsers, login } from './controllers/UsersController';
 
 const routes = Router();
@@ -9,6 +9,8 @@ routes.post('/meals', createMeals);
 
 routes.get('/meals/calories/:option', byCalories);
 routes.get('/meals/title/:name', byName);
+routes.get('/check', check);
+
 
 routes.get('/users', getUsers);
 routes.post('/register', register);
