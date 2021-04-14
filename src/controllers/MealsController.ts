@@ -1,4 +1,4 @@
-import { Equal, getRepository, LessThanOrEqual, Like } from 'typeorm';
+import { Equal, getRepository, LessThanOrEqual, Like, MoreThanOrEqual } from 'typeorm';
 import { Request, Response } from 'express';
 import { Meals } from '../entity/Meals';
 import { Users } from '../entity/Users';
@@ -42,7 +42,18 @@ export const rateMeal = async (req: Request, res: Response) => {
   return res.json(rate);
 }
 
-// Filter by caloreis
+export const byId = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const meal = await getRepository(Meals).findOne({
+    where: { id: id }
+  }).then(data => {
+    return res.json(data);
+  }).catch(err => {
+    return res.json({ msg: 'There was an error!' });
+  })
+}
+
 export const byCalories = async (req: Request, res: Response) => {
   const { option } = req.params;
 
@@ -80,5 +91,23 @@ export const byName = async (req: Request, res: Response) => {
 
 
 export const check = async (req: Request, res: Response) => {
-  return res.json({ msg: req.session.user })
+  if (req.session.user !== undefined) {
+    return res.json({ msg: req.session.user })
+  }
+
+  return res.status(404).json({ msg: 'The user wasn\'t found!' });
+}
+
+export const likes = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const meal = await getRepository(Meals).findOne({
+    where: { id: id }
+  }).then(async (data) => {
+    await getRepository(Meals).update(id, { rated: data.rated + 1 }).then(updated_data => {
+     return res.json({ msg: 'Liked <3' });
+    })
+  }).catch(err => {
+    return res.json({ msg: 'There was an error!' });
+  })
 }
