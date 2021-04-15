@@ -51,6 +51,13 @@ export const login = async (req: Request, res: Response) => {
           console.log(data);
         }).catch(err => console.log(err));
 
+        req.session.user = { // Becareful, the order matter, it wasn't working because its was, id, email, name and photo
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          photo: user.photo,
+        };
+
         return res.status(200).json({ msg: 'Success! Logged' })
       } else {
         return res.status(401).json({ msg: 'Wrong password!' });

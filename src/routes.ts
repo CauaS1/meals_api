@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { Like } from 'typeorm';
-import { byCalories, byId, byName, createMeals, getMeals, likes } from './controllers/MealsController';
+import { byCalories, byId, byName, check, createMeals, getMeals, likes } from './controllers/MealsController';
 import { register, getUsers, login } from './controllers/UsersController';
 
 const routes = Router();
@@ -17,6 +17,7 @@ routes.put('/meal/likes/:id', likes);
 routes.get('/users', getUsers);
 routes.post('/register', register);
 routes.post('/login', login);
+routes.get('/check', check);
 
 
 export default routes;

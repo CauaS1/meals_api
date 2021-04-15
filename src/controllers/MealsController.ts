@@ -101,3 +101,11 @@ export const likes = async (req: Request, res: Response) => {
     return res.json({ msg: 'There was an error!' });
   })
 }
+
+export const check = async (req: Request, res: Response) => {
+  if (req.session.user !== undefined) {
+    return res.json(req.session.user)
+  }
+
+  return res.status(404).json({ msg: 'The user wasn\'t found!' });
+}
