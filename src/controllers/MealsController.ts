@@ -1,7 +1,6 @@
 import { Equal, getRepository, LessThanOrEqual, Like, MoreThanOrEqual } from 'typeorm';
 import { Request, Response } from 'express';
 import { Meals } from '../entity/Meals';
-import { Users } from '../entity/Users';
 
 export const getMeals = async (req: Request, res: Response) => {
   const meals = await getRepository(Meals).find({
@@ -14,7 +13,7 @@ export const getMeals = async (req: Request, res: Response) => {
 export const createMeals = async (req: Request, res: Response) => {
   // const userID = await getRepository(Users).find()
 
-  const { title, breakfast, lunch, snack, dinner, total_calories, breakfast_time, lunch_time, snack_time, dinner_time } = req.body;
+  const { title, breakfast, lunch, snack, dinner, total_calories, breakfast_time, lunch_time, snack_time, dinner_time, users } = req.body;
 
   const meals = await getRepository(Meals).save({
     title,
@@ -27,7 +26,7 @@ export const createMeals = async (req: Request, res: Response) => {
     lunch_time,
     snack_time,
     dinner_time,
-    users: req.session.user
+    users
   }).then(() => {
     console.log('success!')
   }).catch(err => console.log(err)) //When you get a connect error, probaby its because aready have a values like 'string" for example
@@ -87,15 +86,6 @@ export const byName = async (req: Request, res: Response) => {
   const meal_name = await await getRepository(Meals).find({ title: Like(`%${name}%`) });
 
   return res.json(meal_name);
-}
-
-
-export const check = async (req: Request, res: Response) => {
-  if (req.session.user !== undefined) {
-    return res.json({ msg: req.session.user })
-  }
-
-  return res.status(404).json({ msg: 'The user wasn\'t found!' });
 }
 
 export const likes = async (req: Request, res: Response) => {
