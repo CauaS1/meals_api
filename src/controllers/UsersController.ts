@@ -5,6 +5,7 @@ import { Users } from '../entity/Users';
 import * as bcrypt from 'bcrypt';
 
 const salt = 10;
+
 export const getUsers = async (req: Request, res: Response) => {
   const user = await getRepository(Users).find();
 
@@ -65,4 +66,33 @@ export const login = async (req: Request, res: Response) => {
     })
     return res.status(404).json({ msg: 'something went wrong!' });
   })
+}
+
+export const editPhoto = async (req: Request, res: Response) => {
+  const { photo } = req.body;
+
+  if (req.session.user !== undefined) {
+    const userId = req.session.user.id;
+
+    const user = await getRepository(Users).findOne({
+      where: { id: Equal(userId) }
+    }).then(async () => {
+      await getRepository(Users).update(userId, {
+        photo: photo
+      });
+    });
+
+    return res.json(user);
+  }
+
+  return res.json({ msg: 'user not founded!' })
+}
+
+
+export const check = async (req: Request, res: Response) => {
+  if (req.session.user !== undefined) {
+    return res.json(req.session.user)
+  }
+
+  return res.status(404).json({ msg: 'The user wasn\'t found!' });
 }

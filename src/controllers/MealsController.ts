@@ -41,6 +41,7 @@ export const rateMeal = async (req: Request, res: Response) => {
   return res.json(rate);
 }
 
+//Filter by ID
 export const byId = async (req: Request, res: Response) => {
   const { id } = req.params;
 
@@ -53,6 +54,7 @@ export const byId = async (req: Request, res: Response) => {
   })
 }
 
+//Filter by calories
 export const byCalories = async (req: Request, res: Response) => {
   const { option } = req.params;
 
@@ -88,6 +90,7 @@ export const byName = async (req: Request, res: Response) => {
   return res.json(meal_name);
 }
 
+//Give likes
 export const likes = async (req: Request, res: Response) => {
   const { id } = req.params;
 
@@ -102,10 +105,4 @@ export const likes = async (req: Request, res: Response) => {
   })
 }
 
-export const check = async (req: Request, res: Response) => {
-  if (req.session.user !== undefined) {
-    return res.json(req.session.user)
-  }
 
-  return res.status(404).json({ msg: 'The user wasn\'t found!' });
-}
