@@ -26,13 +26,13 @@ export const register = async (req: Request, res: Response) => {
       email: email,
       password: hash,
       name: name,
-      photo: 'not setted'
+      photo: 'undefined'
     })
 
     return res.status(200).json(user);
   }
 
-  return res.status(409).json({ msg: 'Invalid email! Tihs email already exist'! })
+  return res.status(409).json({ msg: 'Invalid email! This email already exist'! })
 }
 
 export const login = async (req: Request, res: Response) => {
@@ -52,7 +52,7 @@ export const login = async (req: Request, res: Response) => {
           console.log(data);
         }).catch(err => console.log(err));
 
-        req.session.user = { // Becareful, the order matter, it wasn't working because its was, id, email, name and photo
+        req.session.user = { // Be careful, the order matter, it wasn't working because its was, id, email, name and photo
           id: user.id,
           name: user.name,
           email: user.email,
@@ -70,22 +70,13 @@ export const login = async (req: Request, res: Response) => {
 
 export const editPhoto = async (req: Request, res: Response) => {
   const { photo } = req.body;
+  const { id } = req.params;
 
-  if (req.session.user !== undefined) {
-    const userId = req.session.user.id;
+  await getRepository(Users).update(id, {
+    photo: photo
+  });
 
-    const user = await getRepository(Users).findOne({
-      where: { id: Equal(userId) }
-    }).then(async () => {
-      await getRepository(Users).update(userId, {
-        photo: photo
-      });
-    });
-
-    return res.json(user);
-  }
-
-  return res.json({ msg: 'user not founded!' })
+  return res.status(200).json('Password Changed!');
 }
 
 

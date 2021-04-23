@@ -16,7 +16,7 @@ routes.put('/meal/likes/:id', likes);
 routes.get('/users', getUsers);
 routes.post('/register', register);
 routes.post('/login', login);
-routes.put('/user/update', editPhoto);
+routes.put('/user/update/:id', editPhoto);
 routes.get('/check', check);
 
 
