@@ -91,13 +91,13 @@ export const byName = async (req: Request, res: Response) => {
 }
 
 //Give likes
-export const likes = async (req: Request, res: Response) => {
+export const like = async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  const meal = await getRepository(Meals).findOne({
+  await getRepository(Meals).findOne({
     where: { id: id }
   }).then(async (data) => {
-    await getRepository(Meals).update(id, { rated: data.rated + 1 }).then(updated_data => {
+    await getRepository(Meals).update(id, { rated: data.rated + 1 }).then(() => {
      return res.json({ msg: 'Liked <3' });
     })
   }).catch(err => {
@@ -105,4 +105,15 @@ export const likes = async (req: Request, res: Response) => {
   })
 }
 
+export const unlike = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  await getRepository(Meals).findOne({
+    where: { id: id }
+  }).then(async (data) => {
+    await getRepository(Meals).update(id, { rated: data.rated - 1 }).then(() => {
+      return res.json({ msg: 'Like was removed!' });
+    }).catch(() => res.json({ msg: 'There was an error!' }))
+  })
+}
 
