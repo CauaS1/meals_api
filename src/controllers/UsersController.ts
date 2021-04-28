@@ -46,7 +46,7 @@ export const login = async (req: Request, res: Response) => {
 
       console.log(hash);
       if (hash !== false) {
-        const accountPassword = getRepository(Users).find({
+        getRepository(Users).find({
           where: { email: Equal(email), password: user.password }
         }).then(data => {
           console.log(data);
@@ -86,4 +86,10 @@ export const check = async (req: Request, res: Response) => {
   }
 
   return res.status(404).json({ msg: 'The user wasn\'t found!' });
+}
+
+export const logout = async (req: Request, res: Response) => {
+  req.session.user = undefined;
+
+  return res.status(200).json({ msg: 'Logout with success!' })
 }

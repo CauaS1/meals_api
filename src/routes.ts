@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { Like } from 'typeorm';
 import { byCalories, byId, byName, createMeals, getMeals, like, unlike } from './controllers/MealsController';
-import { register, getUsers, login, check, editPhoto } from './controllers/UsersController';
+import { register, getUsers, login, check, editPhoto, logout } from './controllers/UsersController';
 
 const routes = Router();
 
@@ -20,6 +20,7 @@ routes.post('/register', register);
 routes.post('/login', login);
 routes.put('/user/update/:id', editPhoto);
 routes.get('/check', check);
+routes.get('/logout', logout);
 
 
 export default routes;
