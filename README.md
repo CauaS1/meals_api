@@ -177,3 +177,17 @@ It returns all users created
   ] 
 }
 ```
+
+### PUT `http://localhost:5500/user/update/${user_id}`
+It's will change the user's photo
+```
+// Body
+{
+	"photo": "photo.link"
+}
+
+// Output
+{
+	"msg": "Photo Changed!"
+}
+```
