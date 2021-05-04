@@ -98,4 +98,40 @@ Give an unlike. For both like and unlike you'll need to build up a system to not
 {
 ```
 
+## User Category
 
+### POST `http://localhost:5500/register`
+Enable you to create your account to access the api/app
+```
+// Input
+{
+  "name": "test",
+  "email": "test@gmail.com",
+  "password": "test"
+}
+
+// Output
+{
+  "email": "test@gmail.com",
+  "password": "$2b$10$PPpxxVHaGhimKf5OUvNhqOE2XuGLEmeXNrggLCeasCnExftqzv6Au",
+  "name": "test",
+  "photo": "undefined",
+  "id": "39dd30fd-73b4-4003-9bf3-43e3c64c75c4",
+  "created_at": "2021-05-04T17:31:44.960Z",
+  "updated_at": "2021-05-04T17:31:44.960Z"
+}
+```
+
+### POST ``
+```
+//Input
+{
+  "email": "test@gmail.com",
+  "password": "test"
+}
+
+//Output
+{
+  "msg": "Success. Logged!"
+}
+```
