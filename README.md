@@ -1,9 +1,11 @@
 # Meals API
 
 ## About
-It's an API about meals, where I used this in my app.
+It's an API about meals, where I used this on my app.
 
-## GET `http:localhost:5500/meals`
+## Meals Category
+
+### GET `http:localhost:5500/meals`
 Return all meals created:
 ```
 [
@@ -37,19 +39,10 @@ Return all meals created:
   ...
 ]
   ```
-  
-## GET `http://localhost:5500/meals/title/${title_of_the_meal}`
-Here you'll get all the Meals with a similar title
-```
-//http://localhost:5500/meals/title/Lig
-{
-	"title": "Light Day Plan",
-	"rated": 0,
-	...
-}
-```  
-  
-## POST `http://localhost:5500/meals`
+### GET `http://localhost:5500/meal/${id}`
+It returns only one meals using the meals's id
+
+### POST `http://localhost:5500/meals`
 You'll create your onw meal plan. your `body` must haves these properties. The user properties in my case I just got the connected user and put the values there
 ```
 {
@@ -75,7 +68,34 @@ You'll create your onw meal plan. your `body` must haves these properties. The u
 
 ```
 
-## GET `http://localhost:5500/meals/calories/${order}` 
+### GET `http://localhost:5500/meals/calories/${order}` 
 It'll return the meals ordered by calories, order options: `asc` and `desc`
+
+### GET `http://localhost:5500/meals/title/${meal_title}`
+Here you'll get all the Meals with a similar title
+```
+//http://localhost:5500/meals/title/Lig
+{
+	"title": "Light Day Plan",
+	"rated": 0,
+	...
+}
+```  
+
+### PUT `http://localhost:5500/meal/like/${meal_id}`
+Give an like
+```
+{
+  "msg": "Liked <3"
+}
+```
+
+### PUT `http://localhost:5500/meal/unlike/${meal_id}`
+Give an unlike. For both like and unlike you'll need to build up a system to not allow you give unlike before there was a like
+```
+}
+  "msg": "Liked was removed"
+{
+```
 
 
