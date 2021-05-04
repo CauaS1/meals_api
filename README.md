@@ -86,7 +86,7 @@ Here you'll get all the Meals with a similar title
 Give an like
 ```
 {
-  "msg": "Liked <3"
+  	"msg": "Liked <3"
 }
 ```
 
@@ -94,7 +94,7 @@ Give an like
 Give an unlike. For both like and unlike you'll need to build up a system to not allow you give unlike before there was a like
 ```
 }
-  "msg": "Liked was removed"
+  	"msg": "Liked was removed"
 {
 ```
 
@@ -105,33 +105,50 @@ Enable you to create your account to access the api/app
 ```
 // Input
 {
-  "name": "test",
-  "email": "test@gmail.com",
-  "password": "test"
+ 	"name": "test",
+  	"email": "test@gmail.com",
+  	"password": "test"
 }
 
 // Output
 {
-  "email": "test@gmail.com",
-  "password": "$2b$10$PPpxxVHaGhimKf5OUvNhqOE2XuGLEmeXNrggLCeasCnExftqzv6Au",
-  "name": "test",
-  "photo": "undefined",
-  "id": "39dd30fd-73b4-4003-9bf3-43e3c64c75c4",
-  "created_at": "2021-05-04T17:31:44.960Z",
-  "updated_at": "2021-05-04T17:31:44.960Z"
+  	"email": "test@gmail.com",
+  	"password": "$2b$10$PPpxxVHaGhimKf5OUvNhqOE2XuGLEmeXNrggLCeasCnExftqzv6Au",
+  	"name": "test",
+  	"photo": "undefined",
+  	"id": "39dd30fd-73b4-4003-9bf3-43e3c64c75c4",
+  	"created_at": "2021-05-04T17:31:44.960Z",
+	"updated_at": "2021-05-04T17:31:44.960Z"
 }
 ```
 
-### POST ``
+### POST `http://localhost:5500/login`
 ```
 //Input
 {
-  "email": "test@gmail.com",
-  "password": "test"
+  	"email": "test@gmail.com",
+  	"password": "test"
 }
 
 //Output
 {
-  "msg": "Success. Logged!"
+  	"msg": "Success. Logged!"
+}
+```
+
+### GET `http://localhost:5500/check`
+Check if the user is connected or not.
+```
+// User connected
+{
+  	"id": "xxxxxx",
+  	"name": "test",
+  	"email": "test@gmail.com",
+ 	"photo": "undefined"
+}
+
+// User not connected
+{
+	"msg": "The user wasn't found!"
 }
 ```
