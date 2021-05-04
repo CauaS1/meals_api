@@ -76,7 +76,7 @@ export const editPhoto = async (req: Request, res: Response) => {
     photo: photo
   });
 
-  return res.status(200).json('Password Changed!');
+  return res.status(200).json({ msg: 'Password Changed!'});
 }
 
 

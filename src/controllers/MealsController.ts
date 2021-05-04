@@ -11,8 +11,6 @@ export const getMeals = async (req: Request, res: Response) => {
 }
 
 export const createMeals = async (req: Request, res: Response) => {
-  // const userID = await getRepository(Users).find()
-
   const { title, breakfast, lunch, snack, dinner, total_calories, breakfast_time, lunch_time, snack_time, dinner_time, users } = req.body;
 
   const meals = await getRepository(Meals).save({
