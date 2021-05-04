@@ -152,3 +152,28 @@ Check if the user is connected or not.
 	"msg": "The user wasn't found!"
 }
 ```
+
+### GET `http://localhost:5500/users`
+It returns all users created
+```
+{
+  "user": [
+    {
+      "id": "xxxxxx",
+      "name": "test_x",
+      "photo": "undefined",
+      "email": "test",
+      "password": "$2b$10$GYy/iMgncXI4bAgg6C2SG.gwp4HhSsXDJ6uPoIR2vzpbb5rGIWjZ.",
+      "created_at": "2021-05-04T14:47:49.623Z",
+      "updated_at": "2021-05-04T14:47:49.623Z"
+    },
+    {
+      "id": "yyyyyy",
+      "name": "test_y",
+      "photo": "undefined",
+      ...
+    }  
+    ...
+  ] 
+}
+```
