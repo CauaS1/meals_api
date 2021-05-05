@@ -1,7 +1,12 @@
 # Meals API
 
-## About
+## 💚 About
 It's an API about meals, where I used this on my app.
+
+## 💥 How to Install?
+
+Clone this rep, install all dependencies with `yarn install`. After install run the server with `yarn dev`. <br>
+The server will start with `port:5500` - `http://localhost:5500`
 
 ## Meals Category
 
